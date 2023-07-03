@@ -9,6 +9,7 @@ import UIKit
 
 final class ViewController: UIViewController {
 
+    // MARK: - 이메일 입력하는 텍스트뷰
     private lazy var emailTextFieldView: UIView = {
         let view = UIView()
         view.frame.size.height = 48
@@ -20,6 +21,7 @@ final class ViewController: UIViewController {
         return view
     }()
     
+    // "이메일 또는 전화번호" 안내문구
     private var emailInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "이메일주소 또는 전화번호"
@@ -28,6 +30,7 @@ final class ViewController: UIViewController {
         return label
     }()
     
+    // 로그인 - 이메일 입력 필드
     private lazy var emailTextField: UITextField = {
         var tf = UITextField()
         tf.frame.size.height = 48
@@ -41,7 +44,7 @@ final class ViewController: UIViewController {
         tf.addTarget(self, action: #selector(textFieldEditingChanged), for: .editingChanged)
         return tf
     }()
-    
+    // MARK: - 비밀번호 입력하는 텍스트 뷰
     private lazy var passwordTextFieldView: UIView = {
         let view = UIView()
         view.frame.size.height = 48
@@ -54,6 +57,7 @@ final class ViewController: UIViewController {
         return view
     }()
     
+    // 패스워드 텍스트 필드의 안내 문구
     private var passwordInfoLabel: UILabel = {
         let label = UILabel()
         label.text = "비밀번호"
@@ -62,6 +66,7 @@ final class ViewController: UIViewController {
         return label
     }()
     
+    // 로그인 - 비밀번호 입력 필드
     private lazy var passwordTextField: UITextField = {
         var tf = UITextField()
         tf.backgroundColor = UIColor.darkGray
@@ -78,6 +83,7 @@ final class ViewController: UIViewController {
         return tf
     }()
     
+    // 패스워드의 "표시" 버튼 : 비밀번호 가리기 기능
     private let passwordSecureButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setTitle("표시", for: .normal)
@@ -87,6 +93,7 @@ final class ViewController: UIViewController {
         return button
     }()
     
+    // MARK: - 로그인 버튼
     private let loginButton: UIButton = {
         let button = UIButton(type: .custom)
         button.backgroundColor = .clear
@@ -110,6 +117,7 @@ final class ViewController: UIViewController {
         return st
     }()
     
+    // 비밀번호 재설정 버튼
     private let passwordResetButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .clear
@@ -127,7 +135,7 @@ final class ViewController: UIViewController {
     
     lazy var passwordInfoLabelCenterYConstraint = passwordInfoLabel.centerYAnchor.constraint(equalTo: passwordTextFieldView.centerYAnchor)
     
-    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -220,6 +228,7 @@ final class ViewController: UIViewController {
     
 }
 
+// MARK: - extension
 extension ViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == emailTextField {
