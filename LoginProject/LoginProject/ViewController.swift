@@ -108,6 +108,7 @@ final class ViewController: UIViewController {
         return button
     }()
     
+    // MARK: - stackView
     lazy var stackView: UIStackView = {
         let st = UIStackView(arrangedSubviews: [emailTextFieldView, passwordTextFieldView, loginButton])
         st.spacing = 18
