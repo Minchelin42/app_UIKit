@@ -75,9 +75,8 @@ class ViewController: UIViewController {
         return st
     }()
 
-    private func timeButton(_ title: String) -> UIButton {
+    /*private func timeButton(_ title: String) -> UIButton {
         let button = UIButton(type: .custom)
-
         button.backgroundColor = .black
 
         button.setTitle(title, for: .normal)
@@ -91,8 +90,160 @@ class ViewController: UIViewController {
 
         button.layer.cornerRadius = 25.5
         button.clipsToBounds = true
+        
+        button.addTarget(self, action: #selector(timeButtonTapped(_:)), for: .touchUpInside)
 
         return button
+    }*/
+    
+    /*private func timeButton(_ title: String) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .black
+        
+        // 시간과 SF Symbol을 결합한 NSAttributedString 생성
+        let attributedTitle = NSMutableAttributedString()
+        let timeAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 24, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ]
+        let timeString = NSAttributedString(string: title + "  ", attributes: timeAttributes)
+        attributedTitle.append(timeString)
+        
+        let symbolAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 24),
+            .foregroundColor: UIColor.white
+        ]
+        
+        let symbolAttachment = NSTextAttachment()
+        symbolAttachment.image = UIImage(systemName: "heart.fill") // 고정된 SF Symbol 이름
+        let symbolString = NSAttributedString(attachment: symbolAttachment)
+        attributedTitle.append(symbolString)
+        
+        // NSAttributedString을 버튼의 타이틀로 설정
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 51).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 148).isActive = true
+        button.layer.cornerRadius = 25.5
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(timeButtonTapped(_:)), for: .touchUpInside)
+        
+        return button
+    }*/
+    
+    /*private func timeButton(_ title: String) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .black
+        
+        // 버튼 타이틀과 심볼을 결합한 NSAttributedString 생성
+        let attributedTitle = NSMutableAttributedString()
+        
+        // 버튼 타이틀 설정
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 24, weight: .semibold),
+            .foregroundColor: UIColor.white
+        ]
+        let titleString = NSAttributedString(string: title, attributes: titleAttributes)
+        attributedTitle.append(titleString)
+        
+        // 공백 문자열 추가
+        let spaceString = NSAttributedString(string: " ", attributes: titleAttributes)
+        attributedTitle.append(spaceString)
+        
+        // 심볼 이미지 설정
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 24)
+        let symbolImage = UIImage(systemName: "chevron.down", withConfiguration: symbolConfiguration)
+        let symbolAttachment = NSTextAttachment()
+        symbolAttachment.image = symbolImage
+        let symbolString = NSAttributedString(attachment: symbolAttachment)
+        attributedTitle.append(symbolString)
+        
+        // NSAttributedString을 버튼의 타이틀로 설정
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 51).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 148).isActive = true
+        button.layer.cornerRadius = 25.5
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(timeButtonTapped(_:)), for: .touchUpInside)
+        
+        return button
+    }*/
+
+    private func timeButton(_ title: String) -> UIButton {
+        let button = UIButton(type: .custom)
+        button.backgroundColor = .black
+        
+        // 버튼 타이틀 설정
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .semibold)
+        
+        // 이미지 설정
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 16)
+        let symbolImage = UIImage(systemName: "chevron.down", withConfiguration: symbolConfiguration)?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        button.setImage(symbolImage, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        
+        // 이미지와 타이틀 배치 방향 설정
+        button.semanticContentAttribute = .forceRightToLeft
+        
+        // 이미지와 타이틀 간격 조정
+        let spacing: CGFloat = 7
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: -spacing)
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 51).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 148).isActive = true
+        button.layer.cornerRadius = 25.5
+        button.clipsToBounds = true
+        button.addTarget(self, action: #selector(timeButtonTapped(_:)), for: .touchUpInside)
+        
+        return button
+    }
+
+    @objc private func timeButtonTapped(_ sender: UIButton) {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.preferredDatePickerStyle = .wheels
+        //datePicker.addTarget(self, action: #selector(datePickerValueChanged(_:)), for: .valueChanged)
+
+        let contentViewController = UIViewController()
+        contentViewController.view.addSubview(datePicker)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+
+        NSLayoutConstraint.activate([
+            datePicker.topAnchor.constraint(equalTo: contentViewController.view.topAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: contentViewController.view.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: contentViewController.view.trailingAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: contentViewController.view.bottomAnchor)
+        ])
+
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.setValue(contentViewController, forKey: "contentViewController")
+
+        let selectAction = UIAlertAction(title: "선택", style: .default) { _ in
+            let selectedDate = datePicker.date
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm"
+            let selectedTime = dateFormatter.string(from: selectedDate)
+
+            sender.setTitle(selectedTime, for: .normal)
+        }
+
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+
+        alertController.addAction(selectAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
+    }
+
+    @objc private func datePickerValueChanged(_ datePicker: UIDatePicker) {
+        // datePicker의 값이 변경되었을 때 필요한 로직을 구현할 수 있습니다.
+        // 선택된 시간을 실시간으로 반영하거나 다른 동작을 수행할 수 있습니다.
     }
     
     private var findButton: UIButton = {
